@@ -13,7 +13,7 @@ class EmulateJoystick(object):
     def __init__(self, rate):
         rospy.init_node("joystick_emulator")
         rospy.Subscriber("gait", String, self.set_gait)
-        rospy.Subscriber("velocity", Twist, self.set_velocity)
+        rospy.Subscriber("cmd_vel", Twist, self.set_velocity)
         self.publisher = rospy.Publisher("notspot_joy/joy_ramped", Joy, queue_size=10)
         self._gait = "stand"
         self._velocity = Twist()
@@ -58,5 +58,3 @@ class EmulateJoystick(object):
 if __name__ == "__main__":
     joystick = EmulateJoystick(10)
     joystick.run()
-    #joystick = PS4_controller(rate = 30)
-    #joystick.run()

@@ -45,6 +45,25 @@
     </collision>
   </link>
 
+  <!-- Include the RealSense camera URDF -->
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+
+  <!-- Define the RealSense camera link -->
+  <link name="realsense_camera_link" />
+
+  <!-- Define the joint connecting the camera to the robot -->
+  <joint name="realsense_camera" type="fixed">
+    <parent link="base_link"/>
+    <child link="realsense_camera_link"/>
+    <origin xyz="0.13 0 0" rpy="0 0 0"/> <!-- Adjust position as needed -->
+  </joint>
+
+
+  <!-- Modify the camera to publish to a specific topic namespace -->
+  <xacro:sensor_d435 name="realsense" topics_ns="realsense" parent="realsense_camera_link" publish_pointcloud="true">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:sensor_d435>
+
   <!-- FR1 -->
   <link name="FR1">
     <inertial>
